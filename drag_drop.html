@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>:::::</title>
+	<style type="text/css">
+		.fish {
+            margin:.5em;
+            font-size:1.2em;
+            position:relative;
+            display:inline-block;
+            -webkit-box-sizing:border-box;
+            -moz-box-sizing:border-box;
+            box-sizing:border-box;
+
+            width: 40px;
+            height: 40px;
+            background: #BAB6B2;
+            float: left;
+
+        }
+        .cloth {
+            width: 100%;
+            height: 210px;
+            border-radius: 15px;
+            border:solid 1px #ccc; 
+        }
+
+
+        .ui-draggable-dragging {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="counter">
+           <h1>You keep: 0</h1>
+
+       </div>
+       <div class="cloth"></div>
+       <div class="row">
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+    </div>
+    <div class="row ">
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+        <div class="fish"></div>
+    </div>
+</div>
+<button type="button" class="btn btn-primary footpage">Send!</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+	$(init);
+
+
+    function init() {
+        var j = 0;
+        $("#counter").find("h1").html("You keep: " + j);
+
+        $(".fish").draggable({
+            addClasses: true,
+            refreshPositions: true,
+            start: function (e, ui) {
+                ui.helper.appendTo('body');
+            },
+            stop: function (e, ui) {
+                j = $(".cloth  .fish").length;
+                $("#counter").find("h1").html("You keep: " + j);
+            }
+
+        });
+
+            $(".cloth").droppable({
+                accept: ".fish",
+                tolerance: "fit",
+                drop: function (event, ui) {
+                    $('.cloth').append(ui.helper.css({
+                        position: 'absolute',
+                        top: ui.helper.offset().top,
+                       left: ui.helper.offset().left
+                    }));
+                    j = $(".cloth  .fish").length;
+                    $("#counter").find("h1").html("You keep: " + j);
+
+                },
+
+            });
+        
+       
+
+
+
+    }
+
+</script>
+</body>
+</html>
